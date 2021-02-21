@@ -5,7 +5,7 @@ import styles from '../../assets/styles';
 const styleHeader = StyleSheet.create({
     container: {
         height: 60,
-        backgroundColor: colors.primaryColor,
+        backgroundColor: colors.whiteColor,
         justifyContent: 'center',
         alignItems: 'flex-start',
         ...styles.shadow

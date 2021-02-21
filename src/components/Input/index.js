@@ -17,12 +17,12 @@ const stylesInput = StyleSheet.create({
 });
 
 
-export default function Input({label,secureTextEntry}) {
+export default function Input({label,secureTextEntry,propsInput}) {
     return (
         <View style={{marginBottom:7}}>
             <Text style={stylesInput.label}>{label}</Text>
             <View style={stylesInput.containerInput}>
-                <TextInput secureTextEntry={secureTextEntry} />
+                <TextInput secureTextEntry={secureTextEntry} {...propsInput}/>
             </View>
         </View>
     );

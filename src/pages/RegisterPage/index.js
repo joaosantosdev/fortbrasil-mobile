@@ -35,9 +35,6 @@ export default function RegisterPage() {
                     <Input label='E-mail'/>
                     <Input label='Senha' secureTextEntry={true}/>
                     <Button title='Criar Conta'/>
-                    <View style={styleRegisterPage.login}>
-                        <Text style={styles.link}>Login</Text>
-                    </View>
                 </View>
             </View>
         </ScrollView>

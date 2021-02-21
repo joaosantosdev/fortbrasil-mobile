@@ -1,4 +1,4 @@
-import {StyleSheet, View, Text, Image, ScrollView, StatusBar} from 'react-native';
+import {StyleSheet, View, Text, Image, ScrollView, StatusBar, TouchableOpacity} from 'react-native';
 import colors from '../../assets/colors';
 import React from 'react';
 
@@ -20,12 +20,14 @@ const styleTabBarMenuItem = StyleSheet.create({
         fontWeight: 'bold',
     },
 });
-export default function TabBarMenuItem({item, active}) {
+export default function TabBarMenuItem({item, active, onPress}) {
     return (
-        <View style={styleTabBarMenuItem.container}>
-            <Image style={styleTabBarMenuItem.icon} source={active === item.key ? item.iconActive : item.icon}/>
-            <Text
-                style={item.key === active ? styleTabBarMenuItem.labelActive : styleTabBarMenuItem.label}>{item.label}</Text>
-        </View>
+        <TouchableOpacity onPress={() => onPress(item)}>
+            <View style={styleTabBarMenuItem.container}>
+                <Image style={styleTabBarMenuItem.icon} source={active === item.key ? item.iconActive : item.icon}/>
+                <Text
+                    style={item.key === active ? styleTabBarMenuItem.labelActive : styleTabBarMenuItem.label}>{item.label}</Text>
+            </View>
+        </TouchableOpacity>
     );
 };

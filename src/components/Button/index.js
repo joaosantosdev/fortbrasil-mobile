@@ -13,17 +13,21 @@ const styleButton = StyleSheet.create({
     },
     title: {
         color: colors.whiteColor,
-        fontSize: 18
+        fontSize: 18,
     },
 
 });
 
 
-export default function Button({title}) {
+export default function Button(props) {
     return (
-        <TouchableOpacity>
-            <View style={styleButton.container}>
-                <Text style={styleButton.title}>{title}</Text>
+        <TouchableOpacity onPress={() => {
+            if (props.onPress) {
+                props.onPress();
+            }
+        }}>
+            <View style={[styleButton.container, props.styleButton]}>
+                <Text style={styleButton.title}>{props.title}</Text>
             </View>
         </TouchableOpacity>
     );

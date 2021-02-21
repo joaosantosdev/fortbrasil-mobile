@@ -24,23 +24,21 @@ const styleLogin = StyleSheet.create({
     },
 });
 
-export default function LoginPage(props) {
-
+export default function EstablishmentFormPage() {
     return (
         <ScrollView style={{backgroundColor: colors.whiteColor}}>
             <View>
-                <StatusBar backgroundColor={colors.primaryColor}/>
+
                 <View style={styleLogin.container}>
-                    <Image source={require('../../assets/imgs/logo.png')} style={styleLogin.logo}/>
-                    <Input label='E-mail'/>
-                    <Input label='Senha' secureTextEntry={true}/>
-                    <Button title='Entrar' onPress={()=>{
-                        props.navigation.push('Menu');
-                    }}/>
-                    <View style={styleLogin.register}>
-                        <Text style={styles.link} onPress={()=>{
-                            props.navigation.push('RegisterPage');
-                        }}>Criar Conta</Text>
+                    <Text style={{fontSize: 30, color: colors.secondaryColor,marginBottom: 20}}>Novo Estabelecimento</Text>
+                    <Input label='Nome'/>
+                    <Input label='Endereço' />
+                    <Input label='Sobre'  />
+                    <View style={{marginTop: 10}}>
+                        <Button title='Salvar'/>
+                    </View>
+                    <View style={{marginTop: 10}}>
+                        <Button title='Excluir' styleButton={{backgroundColor: colors.dangerColor}}/>
                     </View>
                 </View>
             </View>
