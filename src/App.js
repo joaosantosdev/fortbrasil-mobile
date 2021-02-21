@@ -7,12 +7,13 @@ import {
   Text,
   StatusBar,
 } from 'react-native';
+import LoginPage from "./pages/LoginPage";
+import RegisterPage from './pages/RegisterPage';
+import TabBarMenu from './components/TabBarMenu';
 
 const App = () => {
   return (
-    <View>
-        <Text>App</Text>
-    </View>
+      <TabBarMenu/>
   );
 };
 
