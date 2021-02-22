@@ -1,9 +1,11 @@
-import React from 'react';
-import {StyleSheet, View, Text, Image, ScrollView, StatusBar} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {StyleSheet, View, Text, Image, ScrollView, StatusBar,Alert} from 'react-native';
 import colors from '../../assets/colors';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 import styles from '../../assets/styles';
+import utils from '../../utils';
+import  userService from '../../services/user-service';
 
 const styleLogin = StyleSheet.create({
     container: {
@@ -25,6 +27,29 @@ const styleLogin = StyleSheet.create({
 });
 
 export default function LoginPage(props) {
+    const [email,setEmail] = useState('');
+    const [password,setPassword] = useState('');
+
+    useEffect( ()=>{
+        const token =  utils.getToken();
+        if(token){
+            props.navigation.replace('Menu');
+        }
+    },[]);
+
+    const login = async () =>{
+        if(utils.isNull(email) || utils.isNull(password)){
+            return Alert.alert('INFORMAÇÃO','Preencha os campos corretamente.');
+        }
+        await userService.login({email,password}).then(response=>{
+            utils.setToken(response.data.data).then(()=>{
+                props.navigation.replace('Menu');
+            });
+        }).catch(error=>{
+            console.log(error.response)
+             Alert.alert('INFORMAÇÃO','Dados Inválidos. Tente Novamento.');
+        })
+    };
 
     return (
         <ScrollView style={{backgroundColor: colors.whiteColor}}>
@@ -32,11 +57,14 @@ export default function LoginPage(props) {
                 <StatusBar backgroundColor={colors.primaryColor}/>
                 <View style={styleLogin.container}>
                     <Image source={require('../../assets/imgs/logo.png')} style={styleLogin.logo}/>
-                    <Input label='E-mail'/>
-                    <Input label='Senha' secureTextEntry={true}/>
-                    <Button title='Entrar' onPress={()=>{
-                        props.navigation.push('Menu');
-                    }}/>
+                    <Input label='E-mail'
+                           value={email}
+                           onChange={(text)=>setEmail(text)}/>
+                    <Input label='Senha'
+                           secureTextEntry={true}
+                           value={password}
+                           onChange={(text)=>setPassword(text)}/>
+                    <Button title='Entrar' onPress={()=>login()}/>
                     <View style={styleLogin.register}>
                         <Text style={styles.link} onPress={()=>{
                             props.navigation.push('RegisterPage');
