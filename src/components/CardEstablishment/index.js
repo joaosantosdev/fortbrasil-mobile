@@ -47,10 +47,9 @@ export default function CardEstablishment({item,onDelete}) {
                 <Text style={styleCardEstablishment.valueInfo}>{item.description}</Text>
             </View>
             <View style={styleCardEstablishment.containerOptions}>
-                <Image style={styleCardEstablishment.option}
-                       source={require('../../assets/imgs/edit.png')}/>
+
                 <TouchableOpacity onPress={()=>onDelete()}>
-                    <Image style={[styleCardEstablishment.option, {marginLeft: 20}]}
+                    <Image style={[styleCardEstablishment.option]}
                            source={require('../../assets/imgs/trash.png')}/>
                 </TouchableOpacity>
             </View>

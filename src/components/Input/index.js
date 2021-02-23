@@ -16,14 +16,14 @@ const stylesInput = StyleSheet.create({
     }
 });
 
-
-export default function Input({label,secureTextEntry,propsInput,onChange,value}) {
+export default function Input({label,secureTextEntry,propsInput,onChange,value,editable}) {
     return (
         <View style={{marginBottom:7}}>
             <Text style={stylesInput.label}>{label}</Text>
             <View style={stylesInput.containerInput}>
                 <TextInput value={value}
-                           onChangeText={onChange}
+                           editable={editable}
+                           onChangeText={(text)=>onChange(text)}
                            secureTextEntry={secureTextEntry} {...propsInput}/>
             </View>
         </View>

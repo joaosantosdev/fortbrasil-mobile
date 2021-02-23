@@ -18,12 +18,11 @@ baseApi.interceptors.request.use(async (config) => {
 
 
 baseApi.interceptors.response.use((response) => {
-    console.log(response)
     return response;
 }, (error) => {
-    if(utils.httpStatus.UNAUTHORIZED === error.response.status){
-        utils.setToken(null)
-        return '';
+    if(error.response || utils.httpStatus.UNAUTHORIZED === error.response.status){
+        utils.setToken('')
+        return Promise.reject(error);
     }
     return Promise.reject(error);
 });

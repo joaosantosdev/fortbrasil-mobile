@@ -29,11 +29,11 @@ const styleLogin = StyleSheet.create({
 export default function LoginPage(props) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [loading, setLoading] = useState('');
 
     useEffect(() => {
         const isLogged = async () => {
             const token = await utils.getToken();
-            console.log(token)
             if (!utils.isNull(token)) {
                 props.navigation.replace('Menu');
             }
@@ -45,14 +45,17 @@ export default function LoginPage(props) {
         if (utils.isNull(email) || utils.isNull(password)) {
             return Alert.alert('INFORMAÇÃO', 'Preencha os campos corretamente.');
         }
+        setLoading(true);
         await userService.login({email, password}).then(response => {
-            utils.setToken(response.data.data).then(() => {
-                props.navigation.replace('Menu');
-            });
+            if (response.data) {
+                utils.setToken(response.data.data).then(() => {
+                    props.navigation.replace('Menu');
+                });
+            }
         }).catch(error => {
-            console.log(error.response);
             Alert.alert('INFORMAÇÃO', 'Dados Inválidos. Tente Novamento.');
         });
+        setLoading(false);
     };
 
     return (
@@ -68,7 +71,8 @@ export default function LoginPage(props) {
                            secureTextEntry={true}
                            value={password}
                            onChange={(value) => setPassword(value)}/>
-                    <Button title='Entrar' onPress={() => login()}/>
+                    <Button title={loading ? 'Entrando...' : 'Entrar'}
+                            onPress={() => login()}/>
                     <View style={styleLogin.register}>
                         <Text style={styles.link} onPress={() => {
                             props.navigation.push('RegisterPage');
