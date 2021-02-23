@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState}  from 'react';
 import {StyleSheet, View, Text, Image, ScrollView, StatusBar} from 'react-native';
 import colors from '../../assets/colors';
 import Input from '../../components/Input';
@@ -6,6 +6,7 @@ import Button from '../../components/Button';
 import styles from '../../assets/styles';
 import {shallow} from 'react-native/jest/renderer';
 import CardEstablishment from '../../components/CardEstablishment';
+import establishmentService from '../../services/establishment-service';
 
 const styleLogin = StyleSheet.create({
     container: {
@@ -27,25 +28,34 @@ const styleLogin = StyleSheet.create({
 });
 
 export default function EstablishmentViewPage() {
+    const [data,setData]  = useState([]);
+    const getEstablishments = async () => {
+        establishmentService.getEstablishments().then(response=>{
+            if(response.data){
+                setData(response.data.data);
+            }
+        });
+    };
+    useEffect(()=>{
+       getEstablishments();
+    },[]);
 
-    const data = [new Array(100)].map((item, key) => {
-        return {
-            id: key,
-            name: 'Teste 1',
-            description: 'sd',
-        };
+    const deleteEstablishment = (item) =>{
+            establishmentService.deleteEstablishment(item.id).then(()=>{
+               getEstablishments();
+            });
+    };
 
-    });
     return (
         <ScrollView style={{backgroundColor: colors.contentColor}}>
             <View style={{padding: 10, flexDirection: 'column', flex: 1}}>
-                <CardEstablishment/>
-                <CardEstablishment/>
-                <CardEstablishment/>
-                <CardEstablishment/>
-                <CardEstablishment/>
-                <CardEstablishment/>
-                <CardEstablishment/>
+                {
+                  data.map(item=>(
+                      <CardEstablishment
+                          key={item.id} item={item}
+                          onDelete={()=>deleteEstablishment(item)}/>
+                  ))
+                }
             </View>
         </ScrollView>
     );

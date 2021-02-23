@@ -3,7 +3,6 @@ import {StyleSheet, View, Text, Image, ScrollView, StatusBar} from 'react-native
 import colors from '../../assets/colors';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
-import styles from '../../assets/styles';
 
 const styleLogin = StyleSheet.create({
     container: {

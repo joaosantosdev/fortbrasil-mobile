@@ -1,5 +1,4 @@
-import {AsyncStorage} from 'react-native';
-
+import AsyncStorage from '@react-native-community/async-storage';
 export default {
     httpStatus:{
         UNAUTHORIZED:401
@@ -14,3 +13,4 @@ export default {
         return (value || '').trim() === '' || value === undefined || value === null;
     }
 };
+

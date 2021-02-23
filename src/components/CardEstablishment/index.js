@@ -2,6 +2,7 @@ import {Image, Text, View, StyleSheet} from 'react-native';
 import colors from '../../assets/colors';
 import styles from '../../assets/styles';
 import React from 'react';
+import {TouchableOpacity} from 'react-native-gesture-handler';
 
 const styleCardEstablishment = StyleSheet.create({
     container: {
@@ -29,26 +30,29 @@ const styleCardEstablishment = StyleSheet.create({
         fontSize: 15,
     },
 });
-export default function CardEstablishment() {
+export default function CardEstablishment({item,onDelete}) {
+
     return (
         <View style={styleCardEstablishment.container}>
             <View style={{marginBottom: 10}}>
                 <Text style={styleCardEstablishment.labelInfo}>
                     Nome
                 </Text>
-                <Text style={styleCardEstablishment.valueInfo}>Teste 1</Text>
+                <Text style={styleCardEstablishment.valueInfo}>{item.name}</Text>
             </View>
             <View style={{marginBottom: 10}}>
                 <Text style={styleCardEstablishment.labelInfo}>
                     Endereço
                 </Text>
-                <Text style={styleCardEstablishment.valueInfo}>Teste 1</Text>
+                <Text style={styleCardEstablishment.valueInfo}>{item.description}</Text>
             </View>
             <View style={styleCardEstablishment.containerOptions}>
                 <Image style={styleCardEstablishment.option}
                        source={require('../../assets/imgs/edit.png')}/>
-                <Image style={[styleCardEstablishment.option, {marginLeft: 20}]}
-                       source={require('../../assets/imgs/trash.png')}/>
+                <TouchableOpacity onPress={()=>onDelete()}>
+                    <Image style={[styleCardEstablishment.option, {marginLeft: 20}]}
+                           source={require('../../assets/imgs/trash.png')}/>
+                </TouchableOpacity>
             </View>
         </View>
     );

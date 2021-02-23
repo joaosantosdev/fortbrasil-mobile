@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {StyleSheet, View, Text, Image, ScrollView, StatusBar} from 'react-native';
 import colors from '../../assets/colors';
-import Header from '../header';
+import Header from '../Header';
 import styles from '../../assets/styles';
 import TabBarMenuItem from './TabBarMenuItem';
 import EstablishmentFormPage from '../../pages/EstablishmentFormPage';
@@ -56,7 +56,7 @@ export default function TabBarMenu(props) {
 
     return (
         <View style={{flex: 1}}>
-            <Header/>
+            <Header navigation={props.navigation}/>
             <View style={{
                 backgroundColor: colors.whiteColor,
                 flex: 1,
