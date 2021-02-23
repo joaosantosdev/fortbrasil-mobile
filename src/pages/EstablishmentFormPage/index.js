@@ -11,7 +11,7 @@ import utils from '../../utils';
 
 let ScreenHeight = Dimensions.get('window').height;
 
-const styleLogin = StyleSheet.create({
+const styleEstablishment = StyleSheet.create({
     container: {
         backgroundColor: colors.whiteColor,
         width: '100%',
@@ -27,6 +27,37 @@ const styleLogin = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         marginTop: 20,
+    },
+    containerLocations: {
+        width: '100%',
+        position: 'absolute',
+        height: ScreenHeight - 100,
+        backgroundColor: 'rgba(0,0,0,0.5)',
+        zIndex: 10000,
+        alignItems: 'center',
+        padding: 20,
+        justifyContent: 'center',
+    },
+    cardLocations: {
+        width: '100%',
+        height: 355,
+        backgroundColor: colors.whiteColor,
+        ...styles.shadow,
+        borderRadius: styles.radius,
+        padding: 10,
+
+    },
+    itemLocation: {
+        width: '100%',
+        marginBottom: 5,
+        backgroundColor: colors.contentColor,
+        padding: 12,
+        borderRadius: styles.radius,
+    },
+    labelLocation: {
+        fontSize: 17,
+        fontWeight: 'bold',
+        color: colors.secondaryColor,
     },
 });
 
@@ -78,44 +109,17 @@ export default function EstablishmentFormPage() {
 
     return (
         <View>
-            {openLocation ? <View style={{
-                    width: '100%',
-                    position: 'absolute',
-                    height: ScreenHeight - 100,
-                    backgroundColor: 'rgba(0,0,0,0.5)',
-                    zIndex: 10000,
-                    alignItems: 'center',
-                    padding: 20,
-                    justifyContent: 'center',
-                }}>
-
-                    <View style={{
-                        width: '100%',
-                        height: 355,
-                        backgroundColor: colors.whiteColor,
-                        ...styles.shadow,
-                        borderRadius: styles.radius,
-                        padding: 10,
-
-                    }}>
+            {openLocation ?
+                <View style={styleEstablishment.containerLocations}>
+                    <View style={styleEstablishment.cardLocations}>
                         <Input label='Pesquisar' onChange={(text) => searchLocation(text)}/>
                         <ScrollView>
                             {
                                 locations.map((location) => (
                                     <TouchableOpacity
                                         onPress={() => selectedLocation(location)}
-                                        style={{
-                                            width: '100%',
-                                            marginBottom: 5,
-                                            backgroundColor: colors.contentColor,
-                                            padding: 12,
-                                            borderRadius: styles.radius,
-                                        }}>
-                                        <Text style={{
-                                            fontSize: 17,
-                                            fontWeight: 'bold',
-                                            color: colors.secondaryColor,
-                                        }}>{location.name}</Text>
+                                        style={styleEstablishment.itemLocaiton}>
+                                        <Text style={styleEstablishment.labelLocation}>{location.name}</Text>
                                     </TouchableOpacity>
                                 ))
                             }
@@ -125,22 +129,28 @@ export default function EstablishmentFormPage() {
                 </View>
                 : null
             }
-
             <ScrollView style={{backgroundColor: colors.whiteColor}}>
                 <View>
-                    <View style={styleLogin.container}>
+                    <View style={styleEstablishment.container}>
                         <Text style={{fontSize: 30, color: colors.secondaryColor, marginBottom: 20}}>Novo
                             Estabelecimento</Text>
-                        <Input label='Nome' onChange={(value) => setName(value)}/>
-                        <Input label='Sobre' onChange={(value) => setAbout(value)}/>
-                        <TouchableOpacity onPress={() => setOpenLocation(true)}>
-                            <Input label='Endereço' value={location.name} editable={false}/>
+                        <Input label='Nome'
+                               onChange={(value) => setName(value)}/>
+                        <Input label='Sobre'
+                               onChange={(value) => setAbout(value)}/>
+                        <TouchableOpacity
+                            onPress={() => setOpenLocation(true)}>
+                            <Input label='Endereço'
+                                   value={location.name}
+                                   editable={false}/>
                         </TouchableOpacity>
                         <View style={{marginTop: 10}}>
-                            <Button title='Salvar' onPress={() => save()}/>
+                            <Button title='Salvar'
+                                    onPress={() => save()}/>
                         </View>
                         <View style={{marginTop: 10}}>
-                            <Button title='Excluir' styleButton={{backgroundColor: colors.dangerColor}}/>
+                            <Button title='Excluir'
+                                    styleButton={{backgroundColor: colors.dangerColor}}/>
                         </View>
                     </View>
                 </View>
